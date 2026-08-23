@@ -63,7 +63,17 @@ function teacherCallout(label, body, color = "cyan") {
 }
 
 function actions(buttons) {
-  return `<div class="teacher-tools">${buttons.map(({ action, label, className = "" }) => `<button class="mini-btn ${className}" data-action="${action}">${esc(label)}</button>`).join("")}</div>`;
+  return `<div class="teacher-tools">${buttons.filter(Boolean).map(({ action, label, className = "", videoId = "", sectionId = "" }) => `<button class="mini-btn ${className}" data-action="${action}"${videoId ? ` data-video-id="${esc(videoId)}"` : ""}${sectionId ? ` data-section-id="${esc(sectionId)}"` : ""}>${esc(label)}</button>`).join("")}</div>`;
+}
+
+function curatedVideoFor(topic) {
+  return lesson.curatedVideos?.find((video) => video.topic === topic) || null;
+}
+
+function videoAction(topic) {
+  const video = curatedVideoFor(topic);
+  if (!video) return null;
+  return { action: "play-curated-video", videoId: video.id, label: tr("Watch this concept", "شاهد شرح المفهوم"), className: "green" };
 }
 
 function stageChip(stageItem) {
@@ -94,6 +104,7 @@ function stageDetail() {
       { action: `example-${item.id}`, label: "Show example", className: "primary" },
       { action: `before-after-${item.id}`, label: hasBeforeAfter ? "Hide before / after" : "Show before / after", className: "gold" },
       { action: `teacher-note-${item.id}`, label: "Open teacher note" },
+      videoAction(item.id),
       { action: "open-videos", label: "Open lesson videos" }
       ])}
     </div>
@@ -153,25 +164,25 @@ function renderStage(item) {
   const mainImage = item.id === "mobile" ? item.modernImage : item.image;
   const mainAlt = item.id === "mobile" ? item.modernAlt : item.imageAlt;
   const visual = item.id === "cloud" ? cloudDiagram() : image(mainImage, mainAlt, "image-frame--large");
-  return `${pageChrome(tr(item.era, item.eraAr), tr(item.label, item.labelAr), tr(item.technology, item.technologyAr))}<div class="stage-body"><div class="split-grid"><div>${visual}</div><div class="timeline-detail-copy"><h2>${esc(tr(item.technology, item.technologyAr))}</h2><p class="body-copy">${esc(tr(item.significance, item.significanceAr))}</p><div class="impact-line"><strong>${state.languageAr ? "التأثير على المجتمع:" : "Impact on society:"}</strong> ${esc(tr(item.impact, item.impactAr))}</div>${teacherCallout(state.languageAr ? "سؤال" : "Ask", tr(item.question, item.questionAr))}${actions([{ action: `example-${item.id}`, label: tr("Show example", "اعرض المثال"), className: "primary" }, { action: `before-after-${item.id}`, label: state.beforeAfter.has(item.id) ? tr("Hide before / after", "إخفاء قبل / بعد") : tr("Show before / after", "اعرض قبل / بعد"), className: "gold" }, { action: `teacher-note-${item.id}`, label: tr("Open teacher note", "افتح ملاحظة المعلم") }, { action: "open-videos", label: tr("Open lesson videos", "افتح فيديوهات الدرس") }])}</div></div>${state.beforeAfter.has(item.id) ? `<div class="before-after"><div><b>${state.languageAr ? "قبل" : "BEFORE"}</b>${esc(tr(item.before, item.beforeAr))}</div><div><b>${state.languageAr ? "بعد" : "AFTER"}</b>${esc(tr(item.after, item.afterAr))}</div></div>` : ""}</div>`;
+  return `${pageChrome(tr(item.era, item.eraAr), tr(item.label, item.labelAr), tr(item.technology, item.technologyAr))}<div class="stage-body"><div class="split-grid"><div>${visual}</div><div class="timeline-detail-copy"><h2>${esc(tr(item.technology, item.technologyAr))}</h2><p class="body-copy">${esc(tr(item.significance, item.significanceAr))}</p><div class="impact-line"><strong>${state.languageAr ? "التأثير على المجتمع:" : "Impact on society:"}</strong> ${esc(tr(item.impact, item.impactAr))}</div>${teacherCallout(state.languageAr ? "سؤال" : "Ask", tr(item.question, item.questionAr))}${actions([{ action: `example-${item.id}`, label: tr("Show example", "اعرض المثال"), className: "primary" }, { action: `before-after-${item.id}`, label: state.beforeAfter.has(item.id) ? tr("Hide before / after", "إخفاء قبل / بعد") : tr("Show before / after", "اعرض قبل / بعد"), className: "gold" }, { action: `teacher-note-${item.id}`, label: tr("Open teacher note", "افتح ملاحظة المعلم") }, videoAction(item.id), { action: "open-videos", label: tr("Open lesson videos", "افتح فيديوهات الدرس"), sectionId: item.id }])}</div></div>${state.beforeAfter.has(item.id) ? `<div class="before-after"><div><b>${state.languageAr ? "قبل" : "BEFORE"}</b>${esc(tr(item.before, item.beforeAr))}</div><div><b>${state.languageAr ? "بعد" : "AFTER"}</b>${esc(tr(item.after, item.afterAr))}</div></div>` : ""}</div>`;
 }
 
 function renderSocial() {
   const item = lesson.socialChanges.find((entry) => entry.id === state.selectedSocial) || lesson.socialChanges[0];
   return `${pageChrome("SOCIAL TRANSFORMATION", "Technology changes daily life", "Choose a social change to see the source definition and example")}
-    <div class="stage-body"><div class="social-grid">${lesson.socialChanges.map((entry) => `<button class="social-card ${entry.id === state.selectedSocial ? "is-selected" : ""}" data-action="select-social" data-social="${entry.id}" aria-pressed="${entry.id === state.selectedSocial}"><span class="social-icon">${socialIcons[entry.id]}</span><h3>${esc(entry.term)}</h3><p>${esc(tr(entry.short, entry.shortAr))}</p></button>`).join("")}</div><div class="split-grid"><div class="flow-card">${socialVisual(item)}<h3>${esc(item.term)}</h3><p>${esc(tr(item.short, item.shortAr))}</p></div><div class="selected-detail"><strong>${esc(item.title)} · ${esc(item.ar)}</strong><p>${esc(tr(item.sourceText, item.sourceTextAr))}</p><p><b>${state.languageAr ? "مثال:" : "Example:"}</b> ${esc(item.example)}</p>${teacherCallout(state.languageAr ? "سؤال" : "Ask", tr("Why did this technology change society? What became possible?", "لماذا غيّرت هذه التقنية المجتمع؟ وما الذي أصبح ممكنًا؟"))}</div></div></div>`;
+    <div class="stage-body"><div class="social-grid">${lesson.socialChanges.map((entry) => `<button class="social-card ${entry.id === state.selectedSocial ? "is-selected" : ""}" data-action="select-social" data-social="${entry.id}" aria-pressed="${entry.id === state.selectedSocial}"><span class="social-icon">${socialIcons[entry.id]}</span><h3>${esc(entry.term)}</h3><p>${esc(tr(entry.short, entry.shortAr))}</p></button>`).join("")}</div><div class="split-grid"><div class="flow-card">${socialVisual(item)}<h3>${esc(item.term)}</h3><p>${esc(tr(item.short, item.shortAr))}</p></div><div class="selected-detail"><strong>${esc(item.title)} · ${esc(item.ar)}</strong><p>${esc(tr(item.sourceText, item.sourceTextAr))}</p><p><b>${state.languageAr ? "مثال:" : "Example:"}</b> ${esc(item.example)}</p>${teacherCallout(state.languageAr ? "سؤال" : "Ask", tr("Why did this technology change society? What became possible?", "لماذا غيّرت هذه التقنية المجتمع؟ وما الذي أصبح ممكنًا؟"))}${actions([videoAction(item.id), { action: "open-videos", label: tr("Open lesson videos", "افتح فيديوهات الدرس"), sectionId: item.id }])}</div></div></div>`;
 }
 
 function renderEmerging() {
   const item = lesson.emerging.find((entry) => entry.id === state.selectedEmerging) || lesson.emerging[0];
   return `${pageChrome("MODERN IT", "Emerging technologies", "Click a concept to connect the technology to its real-world use")}
-    <div class="stage-body"><div class="emerging-grid">${lesson.emerging.map((entry) => `<button class="emerging-card ${entry.id === state.selectedEmerging ? "is-selected" : ""}" data-action="select-emerging" data-emerging="${entry.id}" aria-pressed="${entry.id === state.selectedEmerging}"><span class="emerging-icon">${emergingIcons[entry.id]}</span><h3>${esc(entry.term)}</h3><span class="ar-term">${esc(entry.ar)}</span><p>${esc(tr(entry.short, entry.shortAr))}</p></button>`).join("")}</div><div class="split-grid"><div class="flow-card">${emergingVisual(item)}<h3>${esc(item.term)}</h3><p>${esc(tr(item.detail, item.detailAr))}</p></div><div class="selected-detail"><strong>${esc(item.term)} · ${esc(item.ar)}</strong><p>${esc(tr(item.short, item.shortAr))}</p>${item.id === "autonomous" ? `<div class="impact-line"><strong>${state.languageAr ? "لماذا الحوسبة الطرفية؟" : "Why edge computing?"}</strong> ${state.languageAr ? "قد يؤثر تأخر معالجة البيانات ولو 0.1 ثانية في السلامة." : "A delay of even 0.1 seconds can lead to an accident."}</div>` : ""}${teacherCallout(state.languageAr ? "سؤال" : "Ask", item.id === "edge" ? tr("Why should this decision happen on the device instead of waiting for the cloud?", "لماذا يجب أن يحدث هذا القرار على الجهاز بدلًا من انتظار السحابة؟") : tr("Where could students see this technology in real life?", "أين يمكن للطلاب رؤية هذه التقنية في الحياة الواقعية؟"))}</div></div></div>`;
+    <div class="stage-body"><div class="emerging-grid">${lesson.emerging.map((entry) => `<button class="emerging-card ${entry.id === state.selectedEmerging ? "is-selected" : ""}" data-action="select-emerging" data-emerging="${entry.id}" aria-pressed="${entry.id === state.selectedEmerging}"><span class="emerging-icon">${emergingIcons[entry.id]}</span><h3>${esc(entry.term)}</h3><span class="ar-term">${esc(entry.ar)}</span><p>${esc(tr(entry.short, entry.shortAr))}</p></button>`).join("")}</div><div class="split-grid"><div class="flow-card">${emergingVisual(item)}<h3>${esc(item.term)}</h3><p>${esc(tr(item.detail, item.detailAr))}</p></div><div class="selected-detail"><strong>${esc(item.term)} · ${esc(item.ar)}</strong><p>${esc(tr(item.short, item.shortAr))}</p>${item.id === "autonomous" ? `<div class="impact-line"><strong>${state.languageAr ? "لماذا الحوسبة الطرفية؟" : "Why edge computing?"}</strong> ${state.languageAr ? "قد يؤثر تأخر معالجة البيانات ولو 0.1 ثانية في السلامة." : "A delay of even 0.1 seconds can lead to an accident."}</div>` : ""}${teacherCallout(state.languageAr ? "سؤال" : "Ask", item.id === "edge" ? tr("Why should this decision happen on the device instead of waiting for the cloud?", "لماذا يجب أن يحدث هذا القرار على الجهاز بدلًا من انتظار السحابة؟") : tr("Where could students see this technology in real life?", "أين يمكن للطلاب رؤية هذه التقنية في الحياة الواقعية؟"))}${actions([videoAction(item.id), { action: "open-videos", label: tr("Open lesson videos", "افتح فيديوهات الدرس"), sectionId: item.id }])}</div></div></div>`;
 }
 
 function renderMoore() {
   const revealed = state.revealed.has("moore-details");
   return `${pageChrome("MOORE'S LAW", "Moore’s Law", "A historical trend in transistor counts")}
-    <div class="stage-body"><div class="moore-grid"><div class="chart-panel"><img src="media/moores_law_chart.png" alt="Moore's Law transistor count over time" /></div><div class="definition-panel"><h3>The source definition</h3><p>${esc(lesson.moore.definition)}</p><div class="small-ar">${esc(lesson.moore.ar)}</div><div class="doubling-row"><span class="doubling-step">2×</span><span class="doubling-arrow">→</span><span class="doubling-step">4×</span><span class="doubling-arrow">→</span><span class="doubling-step">8×</span></div><button class="mini-btn gold" data-action="reveal-moore">${revealed ? "Hide explanation" : "Reveal what to notice"}</button></div></div>${revealed ? `<div class="selected-detail"><strong>What to notice:</strong> the plotted points rise toward much higher transistor counts. The important idea is the long-term growth, not memorizing each processor name. The chart’s vertical axis is logarithmic, so a straight-looking trend can still represent enormous growth.</div>` : ""}${teacherCallout("Teacher question", "What do you notice about transistor count as time moves from left to right?")}</div>`;
+    <div class="stage-body"><div class="moore-grid"><div class="chart-panel"><img src="media/moores_law_chart.png" alt="Moore's Law transistor count over time" /></div><div class="definition-panel"><h3>The source definition</h3><p>${esc(lesson.moore.definition)}</p><div class="small-ar">${esc(lesson.moore.ar)}</div><div class="doubling-row"><span class="doubling-step">2×</span><span class="doubling-arrow">→</span><span class="doubling-step">4×</span><span class="doubling-arrow">→</span><span class="doubling-step">8×</span></div><button class="mini-btn gold" data-action="reveal-moore">${revealed ? "Hide explanation" : "Reveal what to notice"}</button>${actions([videoAction("moore")])}</div></div>${revealed ? `<div class="selected-detail"><strong>What to notice:</strong> the plotted points rise toward much higher transistor counts. The important idea is the long-term growth, not memorizing each processor name. The chart’s vertical axis is logarithmic, so a straight-looking trend can still represent enormous growth.</div>` : ""}${teacherCallout("Teacher question", "What do you notice about transistor count as time moves from left to right?")}</div>`;
 }
 
 function renderLimits() {
@@ -323,9 +334,16 @@ function openGallery() {
   openModal("Lesson media gallery", `${renderGallery()}<p class="small-ar">Use the gallery to pause on a visual and explain what students should notice. Image credits are listed below.</p><div class="selected-detail">${imageCredits.map(([name, url]) => `<div><b>${esc(name)}:</b> <a href="${url}" target="_blank" rel="noreferrer">source</a></div>`).join("")}</div>`);
 }
 
+function curatedVideoList() {
+  const videos = lesson.curatedVideos || [];
+  if (!videos.length) return `<div class="selected-detail">No curated videos are available.</div>`;
+  return `<div class="video-list">${videos.map((video) => `<div class="video-item video-item--curated"><strong>${esc(tr(video.title, video.titleAr))}</strong><span>${esc(video.source)} · ${esc(tr(video.description, video.descriptionAr))}</span><div class="modal-actions"><button class="mini-btn primary" data-action="play-curated-video" data-video-id="${esc(video.id)}">Play in lesson</button></div></div>`).join("")}</div>`;
+}
+
 function openVideos() {
-  const list = state.videoItems.length ? `<div class="video-list">${state.videoItems.map((item, index) => `<div class="video-item"><strong>${esc(item.name)}</strong><span>${esc(item.section)} · ${esc(item.description || item.type || "local video")}</span><div class="modal-actions"><button class="mini-btn primary" data-action="play-video" data-video-index="${index}">Preview</button><button class="mini-btn" data-action="remove-video" data-video-index="${index}">Remove</button></div></div>`).join("")}</div>` : `<div class="selected-detail">No lesson videos have been added yet. Add a YouTube URL or choose local video files for a classroom preview.</div>`;
-  openModal("Lesson media · Video library", `<div class="video-library"><div class="video-drop"><h3>Add a lesson video</h3><p>YouTube links are embedded without autoplay. Local files are previewed in this browser session.</p><select id="video-section-select" class="control-select">${lesson.stages.map((item) => `<option value="${item.era}">${esc(item.era)} · ${esc(item.label)}</option>`).join("")}<option value="Modern IT">Modern IT</option><option value="Exam Prep">Exam Prep</option></select><input id="video-title-input" class="control-input" placeholder="Video title" /><input id="video-url-input" class="control-input" placeholder="YouTube or video URL" /><input id="video-description-input" class="control-input" placeholder="Short description (optional)" /><div class="modal-actions"><button class="mini-btn primary" data-action="add-video-url">Add video URL</button><button class="mini-btn" data-action="choose-video">Choose local video file(s)</button></div></div><div>${list}</div></div>`);
+  const curated = curatedVideoList();
+  const added = state.videoItems.length ? `<div class="video-list">${state.videoItems.map((item, index) => `<div class="video-item"><strong>${esc(item.name)}</strong><span>${esc(item.section)} · ${esc(item.description || item.type || "local video")}</span><div class="modal-actions"><button class="mini-btn primary" data-action="play-video" data-video-index="${index}">Preview</button><button class="mini-btn" data-action="remove-video" data-video-index="${index}">Remove</button></div></div>`).join("")}</div>` : `<div class="selected-detail">No teacher-added videos yet. You can add a YouTube URL or choose local video files for a classroom preview.</div>`;
+  openModal("Lesson media · Video library", `<div class="video-library"><div class="video-drop"><h3>Recommended lesson videos</h3><p>Each curated video is linked to the concept where it is taught. YouTube opens inside the lesson without autoplay.</p>${curated}</div><div><h3 class="video-library-heading">Add your own video</h3><p class="small-ar">Teacher-added URLs and local files stay available during this browser session.</p><select id="video-section-select" class="control-select">${lesson.stages.map((item) => `<option value="${item.era}">${esc(item.era)} · ${esc(item.label)}</option>`).join("")}<option value="Modern IT">Modern IT</option><option value="Exam Prep">Exam Prep</option></select><input id="video-title-input" class="control-input" placeholder="Video title" /><input id="video-url-input" class="control-input" placeholder="YouTube or video URL" /><input id="video-description-input" class="control-input" placeholder="Short description (optional)" /><div class="modal-actions"><button class="mini-btn primary" data-action="add-video-url">Add video URL</button><button class="mini-btn" data-action="choose-video">Choose local video file(s)</button></div><div class="added-video-list"><h3 class="video-library-heading">Teacher-added videos</h3>${added}</div></div></div>`);
 }
 
 function chooseVideoFiles() { videoInput.value = ""; videoInput.click(); }
@@ -366,6 +384,13 @@ function playVideo(index) {
   openModal(item.name, `${player}<p><b>Lesson section:</b> ${esc(item.section)}</p><p>${esc(item.description || "")}</p>`);
 }
 
+function playCuratedVideo(id) {
+  const video = lesson.curatedVideos?.find((entry) => entry.id === id);
+  if (!video) return;
+  const player = `<iframe class="lesson-video" src="${esc(youtubeEmbedUrl(video.url))}" title="${esc(tr(video.title, video.titleAr))}" loading="lazy" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>`;
+  openModal(tr(video.title, video.titleAr), `${player}<div class="video-resource"><b>${esc(tr("Why this video is here", "لماذا يوجد هذا الفيديو هنا"))}:</b> ${esc(tr(video.description, video.descriptionAr))}<br /><span>${esc(video.source)}</span></div>`);
+}
+
 function handleAction(event) {
   const target = event.target.closest("[data-action]");
   if (!target) return;
@@ -394,6 +419,7 @@ function handleAction(event) {
   else if (action === "choose-video") chooseVideoFiles();
   else if (action === "add-video-url") addVideoUrl();
   else if (action === "play-video") playVideo(Number(target.dataset.videoIndex));
+  else if (action === "play-curated-video") playCuratedVideo(target.dataset.videoId);
   else if (action === "remove-video") { const removed = state.videoItems.splice(Number(target.dataset.videoIndex), 1)[0]; if (removed?.url) URL.revokeObjectURL(removed.url); openVideos(); }
 }
 

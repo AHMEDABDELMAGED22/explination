@@ -191,7 +191,19 @@ export const lesson = {
       "D A system for making payments using electronic money or QR codes without using cash."
     ]
   },
-  keyConcepts: ["Moore’s Law", "SNS", "e-commerce", "remote work", "online learning", "cashless payment", "edge computing", "autonomous driving", "AR / VR", "quantum computing"]
+  keyConcepts: ["Moore’s Law", "SNS", "e-commerce", "remote work", "online learning", "cashless payment", "edge computing", "autonomous driving", "AR / VR", "quantum computing"],
+  // Curated resources open inside the lesson. These are intentionally tied to
+  // the exact concept being taught instead of being a generic video list.
+  curatedVideos: [
+    { id: "eniac-startup", topic: "eniac", title: "ENIAC: starting up the first electronic general-purpose computer", titleAr: "ENIAC: تشغيل أحد أوائل الحواسيب الإلكترونية العامة", description: "Historical footage that makes the room-sized ENIAC and its operation visible.", descriptionAr: "لقطات تاريخية توضح حجم ENIAC وطريقة تشغيله.", url: "https://www.youtube.com/watch?v=lPiXi7CUNU4", source: "Computer History Archives Project (CHAP)" },
+    { id: "web-history", topic: "web", title: "A brief history of the World Wide Web", titleAr: "نبذة عن تاريخ شبكة الويب العالمية", description: "CERN’s visual history of the Web and why linked pages changed access to information.", descriptionAr: "عرض بصري من CERN لتاريخ الويب وكيف غيّرت الصفحات المترابطة الوصول إلى المعلومات.", url: "https://www.youtube.com/watch?v=sSqZ_hJu9zA", source: "CERN" },
+    { id: "cloud-basics", topic: "cloud", title: "What is Cloud Computing?", titleAr: "ما هي الحوسبة السحابية؟", description: "IBM explains why the cloud means computing resources delivered as a service over a network.", descriptionAr: "شرح من IBM لمعنى تقديم موارد الحوسبة كخدمة عبر الشبكة.", url: "https://www.youtube.com/watch?v=Y-Jhlwy2sW4", source: "IBM Developer" },
+    { id: "moore-trend", topic: "moore", title: "Moore’s Law: transistor count over time", titleAr: "قانون مور: نمو عدد الترانزستورات بمرور الوقت", description: "Use the video with the chart: focus on the long-term rise in transistor counts, not memorizing chip names.", descriptionAr: "استخدم الفيديو مع الرسم البياني وركز على الزيادة طويلة المدى في عدد الترانزستورات.", url: "https://www.youtube.com/watch?v=03v8Xc1RmAg", source: "Moore’s Law educational explainer" },
+    { id: "edge-computing", topic: "edge", title: "What is edge computing?", titleAr: "ما هي الحوسبة الطرفية؟", description: "IBM explains why processing closer to where data is created can reduce delay.", descriptionAr: "شرح من IBM لسبب تقليل التأخير عند معالجة البيانات قرب مصدرها.", url: "https://www.youtube.com/watch?v=cEOUeItHDdo", source: "IBM Technology" },
+    { id: "autonomous-driving", topic: "autonomous", title: "Sense, Solve, and Go: the Waymo Driver", titleAr: "كيف تعمل القيادة الذاتية: استشعر، حلل، تحرك", description: "Waymo demonstrates cameras, sensors, computing, and the decision loop in an autonomous vehicle.", descriptionAr: "عرض من Waymo للكاميرات والمستشعرات والحوسبة وحلقة اتخاذ القرار في المركبة الذاتية.", url: "https://www.youtube.com/watch?v=hA_-MkU0Nfw", source: "Waymo" },
+    { id: "ar-explainer", topic: "ar", title: "What is Augmented Reality (AR)?", titleAr: "ما هو الواقع المعزز؟", description: "A visual explanation of adding a digital layer while the real world remains visible.", descriptionAr: "شرح بصري لإضافة طبقة رقمية مع بقاء العالم الحقيقي ظاهرًا.", url: "https://www.youtube.com/watch?v=QpbJwad6v_s", source: "IBM Technology" },
+    { id: "quantum-basics", topic: "quantum", title: "What is Quantum Computing?", titleAr: "ما هي الحوسبة الكمية؟", description: "IBM introduces the basic idea of quantum computing without replacing the lesson’s simple bit/qubit comparison.", descriptionAr: "مقدمة من IBM للفكرة الأساسية للحوسبة الكمية دون استبدال المقارنة المبسطة بين البت والكيوبت.", url: "https://www.youtube.com/watch?v=lt4OsgmUTGI", source: "IBM Technology" }
+  ]
 };
 
 export const imageCredits = [

@@ -36,7 +36,8 @@ npx serve .
 - `Full screen` switches to a presentation-friendly view.
 - Keyboard: `←` / `→` navigate, `Space` reveals the current teaching answer, `F` toggles full screen, `Esc` closes overlays.
 - `Media gallery` opens the historical images and chart in a large lightbox.
-- `Video library` accepts YouTube/video URLs as well as local video files, associates each item with a lesson section, and previews it in a large player without autoplay. Local video previews are browser-session only; persistent storage would require a backend or file hosting layer.
+- Each major teaching area now has a curated, in-context YouTube resource: ENIAC, the Web, cloud computing, Moore’s Law/transistor growth, edge computing, autonomous driving, AR, and quantum computing. Use `Watch this concept` beside the explanation or open `Video library` to browse them.
+- `Video library` also accepts YouTube/video URLs as well as local video files, associates each item with a lesson section, and previews it in a large player without autoplay. Local video previews are browser-session only; persistent storage would require a backend or file hosting layer.
 - `Key Facts + Concepts` exposes the official sidebar material as expandable cards.
 - `Think and investigate` contains the official worked example, Try questions, Think as an Engineer task, New Context prompt, Exercise, and Lesson Question answer.
 
