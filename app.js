@@ -388,7 +388,7 @@ function playCuratedVideo(id) {
   const video = lesson.curatedVideos?.find((entry) => entry.id === id);
   if (!video) return;
   const player = `<iframe class="lesson-video" src="${esc(youtubeEmbedUrl(video.url))}" title="${esc(tr(video.title, video.titleAr))}" loading="lazy" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>`;
-  openModal(tr(video.title, video.titleAr), `${player}<div class="video-resource"><b>${esc(tr("Why this video is here", "لماذا يوجد هذا الفيديو هنا"))}:</b> ${esc(tr(video.description, video.descriptionAr))}<br /><span>${esc(video.source)}</span></div>`);
+  openModal(tr(video.title, video.titleAr), `${player}<div class="video-resource"><b>${esc(tr("Why this video is here", "لماذا يوجد هذا الفيديو هنا"))}:</b> ${esc(tr(video.description, video.descriptionAr))}<br /><span>${esc(video.source)}</span><br /><a href="${esc(video.url)}" target="_blank" rel="noreferrer">Open on YouTube ↗</a></div>`);
 }
 
 function handleAction(event) {
