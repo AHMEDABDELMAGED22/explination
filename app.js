@@ -249,6 +249,7 @@ function renderRail() {
 
 function render() {
   stage.innerHTML = renderSlide();
+  stage.style.transform = "none";
   stage.classList.remove("stage-pulse");
   void stage.offsetWidth;
   stage.classList.add("stage-pulse");
@@ -266,6 +267,23 @@ function render() {
   document.body.classList.toggle("lang-ar", state.languageAr);
   document.querySelector("#prev-btn").disabled = state.index === 0;
   document.querySelector("#next-btn").textContent = state.index === slides.length - 1 ? "Restart ↺" : "Next →";
+  requestAnimationFrame(fitStageToViewport);
+}
+
+function fitStageToViewport() {
+  if (!stage || window.matchMedia("(max-width: 820px)").matches) {
+    if (stage) stage.style.transform = "none";
+    return;
+  }
+  stage.style.transform = "none";
+  const availableWidth = stage.clientWidth;
+  const availableHeight = stage.clientHeight;
+  const naturalWidth = stage.scrollWidth;
+  const naturalHeight = stage.scrollHeight;
+  if (!availableWidth || !availableHeight) return;
+  const scale = Math.min(1, availableWidth / naturalWidth, availableHeight / naturalHeight);
+  stage.style.transform = scale < 0.999 ? `scale(${scale})` : "none";
+  stage.setAttribute("data-fit-scale", scale.toFixed(3));
 }
 
 function goTo(index) {
@@ -431,7 +449,14 @@ document.querySelector("#gallery-btn").addEventListener("click", openGallery);
 document.querySelector("#video-btn").addEventListener("click", openVideos);
 document.querySelector("#mode-toggle").addEventListener("click", () => { state.teacherMode = !state.teacherMode; render(); });
 languageToggle.addEventListener("click", () => { state.languageAr = !state.languageAr; render(); });
-document.querySelector("#fullscreen-btn").addEventListener("click", async () => { try { if (!document.fullscreenElement) await document.documentElement.requestFullscreen(); else await document.exitFullscreen(); } catch { document.body.classList.toggle("presentation"); } });
+document.querySelector("#fullscreen-btn").addEventListener("click", async () => {
+  document.body.classList.toggle("presentation");
+  try {
+    if (!document.fullscreenElement) await document.documentElement.requestFullscreen();
+    else await document.exitFullscreen();
+  } catch {}
+  requestAnimationFrame(fitStageToViewport);
+});
 videoInput.addEventListener("change", () => handleVideoFiles(videoInput.files));
 modalRoot.addEventListener("click", (event) => { if (event.target === modalRoot) closeModal(); });
 document.addEventListener("keydown", (event) => {
@@ -442,5 +467,8 @@ document.addEventListener("keydown", (event) => {
   if (event.key.toLowerCase() === "f") document.querySelector("#fullscreen-btn").click();
   if (event.key === " ") { event.preventDefault(); if (slides[state.index].type === "exam") { state.revealed.has("exam") ? state.revealed.delete("exam") : state.revealed.add("exam"); render(); } else if (slides[state.index].type === "moore") { state.revealed.has("moore-details") ? state.revealed.delete("moore-details") : state.revealed.add("moore-details"); render(); } }
 });
+
+window.addEventListener("resize", fitStageToViewport);
+document.addEventListener("fullscreenchange", () => requestAnimationFrame(fitStageToViewport));
 
 render();
