@@ -8,6 +8,7 @@ const progressLabel = document.querySelector("#progress-label");
 const progressBar = document.querySelector("#progress-bar");
 const progressTrack = document.querySelector(".progress-track");
 const videoInput = document.querySelector("#video-input");
+const languageToggle = document.querySelector("#language-toggle");
 
 const slides = [
   { type: "overview", section: "WELCOME", rail: "Welcome" },
@@ -36,6 +37,7 @@ const state = {
   videoPreview: null,
   activity: "cashless",
   practiceTab: "worked",
+  languageAr: false,
   modalOpen: false
 };
 
@@ -45,6 +47,10 @@ const emergingIcons = { autonomous: "◉", edge: "⇄", ar: "✦", vr: "◌", qu
 
 function esc(value = "") {
   return String(value).replace(/[&<>"']/g, (char) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#039;" }[char]));
+}
+
+function tr(english, arabic = "") {
+  return state.languageAr && arabic ? arabic : english;
 }
 
 function image(src, alt, className = "") {
@@ -64,7 +70,7 @@ function stageChip(stageItem) {
   const isActive = stageItem.id === state.selectedStage;
   const imageMarkup = stageItem.image ? `<img src="${stageItem.image}" alt="${esc(stageItem.imageAlt)}" loading="lazy" />` : `<div class="cloud-mark">CLOUD</div>`;
   return `<button type="button" class="stage-chip ${isActive ? "is-active" : ""}" data-action="select-stage" data-stage="${stageItem.id}" aria-pressed="${isActive}">
-    ${imageMarkup}<span class="era">${esc(stageItem.era)}</span><span class="stage-label">${esc(stageItem.label)}</span><span class="impact">${esc(stageItem.impact)}</span>
+    ${imageMarkup}<span class="era">${esc(tr(stageItem.era, stageItem.eraAr))}</span><span class="stage-label">${esc(tr(stageItem.label, stageItem.labelAr))}</span><span class="impact">${esc(tr(stageItem.impact, stageItem.impactAr))}</span>
   </button>`;
 }
 
@@ -77,13 +83,13 @@ function stageDetail() {
   return `<div class="timeline-detail">
     <div class="timeline-visual">${visual}</div>
     <div class="timeline-detail-copy">
-      <div class="stage-eyebrow">${esc(item.era)}</div>
-      <h2>${esc(item.label)}</h2>
-      <h3>${esc(item.technology)}</h3>
-      <p class="body-copy">${esc(item.significance)}</p>
-      <div class="impact-line"><strong>Impact on society:</strong> ${esc(item.impact)}</div>
+      <div class="stage-eyebrow">${esc(tr(item.era, item.eraAr))}</div>
+      <h2>${esc(tr(item.label, item.labelAr))}</h2>
+      <h3>${esc(tr(item.technology, item.technologyAr))}</h3>
+      <p class="body-copy">${esc(tr(item.significance, item.significanceAr))}</p>
+      <div class="impact-line"><strong>${state.languageAr ? "التأثير على المجتمع:" : "Impact on society:"}</strong> ${esc(tr(item.impact, item.impactAr))}</div>
       ${hasBeforeAfter ? `<div class="before-after"><div><b>BEFORE</b>${esc(item.before)}</div><div><b>AFTER</b>${esc(item.after)}</div></div>` : ""}
-      ${teacherCallout("Ask", item.question)}
+      ${teacherCallout(state.languageAr ? "سؤال" : "Ask", tr(item.question, item.questionAr))}
       ${actions([
       { action: `example-${item.id}`, label: "Show example", className: "primary" },
       { action: `before-after-${item.id}`, label: hasBeforeAfter ? "Hide before / after" : "Show before / after", className: "gold" },
@@ -130,7 +136,7 @@ function pageChrome(eyebrow, title, subtitle = "") {
 
 function renderOverview() {
   const stageImages = lesson.stages.map((item) => item.image ? `<img src="${item.image}" alt="${esc(item.label)}" />` : `<div class="cloud-mark">CLOUD</div>`).join("");
-  return `${pageChrome("LESSON 1-1", lesson.title)}<div class="hero-grid stage-body"><div class="hero-copy"><p class="body-copy">A visual journey from room-sized computers to cloud computing — and the social changes that happened at every stage.</p><div class="small-ar">${esc(lesson.titleAr)}</div>${actions([{ action: "start-lesson", label: "Start lesson", className: "primary" }, { action: "go-timeline", label: "Timeline overview", className: "gold" }])}${teacherCallout("Teaching flow", "See → Ask → Explain → Show → Interact → Connect")}</div><div class="hero-media"><div class="image-frame image-frame--large"><img src="media/eniac.jpg" alt="ENIAC" /><span class="image-caption">1940s–60s · ENIAC</span></div><div class="image-frame image-frame--large"><img src="media/smartphone.jpg" alt="Modern smartphone" /><span class="image-caption">2000s · mobile Internet</span></div></div></div><div class="stage-strip">${stageImages}</div>`;
+  return `${pageChrome("LESSON 1-1", tr(lesson.title, lesson.titleAr))}<div class="hero-grid stage-body"><div class="hero-copy"><p class="body-copy">${esc(tr("A visual journey from room-sized computers to cloud computing — and the social changes that happened at every stage.", "رحلة بصرية من الحواسيب التي كانت تملأ غرفة كاملة إلى الحوسبة السحابية، وما صاحب كل مرحلة من تحولات اجتماعية."))}</p>${state.languageAr ? "" : `<div class="small-ar">${esc(lesson.titleAr)}</div>`}${actions([{ action: "start-lesson", label: tr("Start lesson", "ابدأ الدرس"), className: "primary" }, { action: "go-timeline", label: tr("Timeline overview", "نظرة عامة على الخط الزمني"), className: "gold" }])}${teacherCallout(tr("Teaching flow", "مسار الشرح"), tr("See → Ask → Explain → Show → Interact → Connect", "شاهد ← اسأل ← اشرح ← اعرض ← تفاعل ← اربط"))}</div><div class="hero-media"><div class="image-frame image-frame--large"><img src="media/eniac.jpg" alt="ENIAC" /><span class="image-caption">1940s–60s · ENIAC</span></div><div class="image-frame image-frame--large"><img src="media/smartphone.jpg" alt="Modern smartphone" /><span class="image-caption">2000s · mobile Internet</span></div></div></div><div class="stage-strip">${stageImages}</div>`;
 }
 
 function renderOpening() {
@@ -147,19 +153,19 @@ function renderStage(item) {
   const mainImage = item.id === "mobile" ? item.modernImage : item.image;
   const mainAlt = item.id === "mobile" ? item.modernAlt : item.imageAlt;
   const visual = item.id === "cloud" ? cloudDiagram() : image(mainImage, mainAlt, "image-frame--large");
-  return `${pageChrome(item.era, item.label, item.technology)}<div class="stage-body"><div class="split-grid"><div>${visual}</div><div class="timeline-detail-copy"><h2>${esc(item.technology)}</h2><p class="body-copy">${esc(item.significance)}</p><div class="impact-line"><strong>Impact on society:</strong> ${esc(item.impact)}</div>${teacherCallout("Ask", item.question)}${actions([{ action: `example-${item.id}`, label: "Show example", className: "primary" }, { action: `before-after-${item.id}`, label: state.beforeAfter.has(item.id) ? "Hide before / after" : "Show before / after", className: "gold" }, { action: `teacher-note-${item.id}`, label: "Open teacher note" }, { action: "open-videos", label: "Open lesson videos" }])}</div></div>${state.beforeAfter.has(item.id) ? `<div class="before-after"><div><b>BEFORE</b>${esc(item.before)}</div><div><b>AFTER</b>${esc(item.after)}</div></div>` : ""}</div>`;
+  return `${pageChrome(tr(item.era, item.eraAr), tr(item.label, item.labelAr), tr(item.technology, item.technologyAr))}<div class="stage-body"><div class="split-grid"><div>${visual}</div><div class="timeline-detail-copy"><h2>${esc(tr(item.technology, item.technologyAr))}</h2><p class="body-copy">${esc(tr(item.significance, item.significanceAr))}</p><div class="impact-line"><strong>${state.languageAr ? "التأثير على المجتمع:" : "Impact on society:"}</strong> ${esc(tr(item.impact, item.impactAr))}</div>${teacherCallout(state.languageAr ? "سؤال" : "Ask", tr(item.question, item.questionAr))}${actions([{ action: `example-${item.id}`, label: tr("Show example", "اعرض المثال"), className: "primary" }, { action: `before-after-${item.id}`, label: state.beforeAfter.has(item.id) ? tr("Hide before / after", "إخفاء قبل / بعد") : tr("Show before / after", "اعرض قبل / بعد"), className: "gold" }, { action: `teacher-note-${item.id}`, label: tr("Open teacher note", "افتح ملاحظة المعلم") }, { action: "open-videos", label: tr("Open lesson videos", "افتح فيديوهات الدرس") }])}</div></div>${state.beforeAfter.has(item.id) ? `<div class="before-after"><div><b>${state.languageAr ? "قبل" : "BEFORE"}</b>${esc(tr(item.before, item.beforeAr))}</div><div><b>${state.languageAr ? "بعد" : "AFTER"}</b>${esc(tr(item.after, item.afterAr))}</div></div>` : ""}</div>`;
 }
 
 function renderSocial() {
   const item = lesson.socialChanges.find((entry) => entry.id === state.selectedSocial) || lesson.socialChanges[0];
   return `${pageChrome("SOCIAL TRANSFORMATION", "Technology changes daily life", "Choose a social change to see the source definition and example")}
-    <div class="stage-body"><div class="social-grid">${lesson.socialChanges.map((entry) => `<button class="social-card ${entry.id === state.selectedSocial ? "is-selected" : ""}" data-action="select-social" data-social="${entry.id}" aria-pressed="${entry.id === state.selectedSocial}"><span class="social-icon">${socialIcons[entry.id]}</span><h3>${esc(entry.term)}</h3><p>${esc(entry.short)}</p></button>`).join("")}</div><div class="split-grid"><div class="flow-card">${socialVisual(item)}<h3>${esc(item.term)}</h3><p>${esc(item.short)}</p></div><div class="selected-detail"><strong>${esc(item.title)} · ${esc(item.ar)}</strong><p>${esc(item.sourceText)}</p><p><b>Example:</b> ${esc(item.example)}</p>${teacherCallout("Ask", "Why did this technology change society? What became possible?")}</div></div></div>`;
+    <div class="stage-body"><div class="social-grid">${lesson.socialChanges.map((entry) => `<button class="social-card ${entry.id === state.selectedSocial ? "is-selected" : ""}" data-action="select-social" data-social="${entry.id}" aria-pressed="${entry.id === state.selectedSocial}"><span class="social-icon">${socialIcons[entry.id]}</span><h3>${esc(entry.term)}</h3><p>${esc(tr(entry.short, entry.shortAr))}</p></button>`).join("")}</div><div class="split-grid"><div class="flow-card">${socialVisual(item)}<h3>${esc(item.term)}</h3><p>${esc(tr(item.short, item.shortAr))}</p></div><div class="selected-detail"><strong>${esc(item.title)} · ${esc(item.ar)}</strong><p>${esc(tr(item.sourceText, item.sourceTextAr))}</p><p><b>${state.languageAr ? "مثال:" : "Example:"}</b> ${esc(item.example)}</p>${teacherCallout(state.languageAr ? "سؤال" : "Ask", tr("Why did this technology change society? What became possible?", "لماذا غيّرت هذه التقنية المجتمع؟ وما الذي أصبح ممكنًا؟"))}</div></div></div>`;
 }
 
 function renderEmerging() {
   const item = lesson.emerging.find((entry) => entry.id === state.selectedEmerging) || lesson.emerging[0];
   return `${pageChrome("MODERN IT", "Emerging technologies", "Click a concept to connect the technology to its real-world use")}
-    <div class="stage-body"><div class="emerging-grid">${lesson.emerging.map((entry) => `<button class="emerging-card ${entry.id === state.selectedEmerging ? "is-selected" : ""}" data-action="select-emerging" data-emerging="${entry.id}" aria-pressed="${entry.id === state.selectedEmerging}"><span class="emerging-icon">${emergingIcons[entry.id]}</span><h3>${esc(entry.term)}</h3><span class="ar-term">${esc(entry.ar)}</span><p>${esc(entry.short)}</p></button>`).join("")}</div><div class="split-grid"><div class="flow-card">${emergingVisual(item)}<h3>${esc(item.term)}</h3><p>${esc(item.detail)}</p></div><div class="selected-detail"><strong>${esc(item.term)} · ${esc(item.ar)}</strong><p>${esc(item.short)}</p>${item.id === "autonomous" ? `<div class="impact-line"><strong>Why edge computing?</strong> A delay of even 0.1 seconds can lead to an accident.</div>` : ""}${teacherCallout("Ask", item.id === "edge" ? "Why should this decision happen on the device instead of waiting for the cloud?" : "Where could students see this technology in real life?")}</div></div></div>`;
+    <div class="stage-body"><div class="emerging-grid">${lesson.emerging.map((entry) => `<button class="emerging-card ${entry.id === state.selectedEmerging ? "is-selected" : ""}" data-action="select-emerging" data-emerging="${entry.id}" aria-pressed="${entry.id === state.selectedEmerging}"><span class="emerging-icon">${emergingIcons[entry.id]}</span><h3>${esc(entry.term)}</h3><span class="ar-term">${esc(entry.ar)}</span><p>${esc(tr(entry.short, entry.shortAr))}</p></button>`).join("")}</div><div class="split-grid"><div class="flow-card">${emergingVisual(item)}<h3>${esc(item.term)}</h3><p>${esc(tr(item.detail, item.detailAr))}</p></div><div class="selected-detail"><strong>${esc(item.term)} · ${esc(item.ar)}</strong><p>${esc(tr(item.short, item.shortAr))}</p>${item.id === "autonomous" ? `<div class="impact-line"><strong>${state.languageAr ? "لماذا الحوسبة الطرفية؟" : "Why edge computing?"}</strong> ${state.languageAr ? "قد يؤثر تأخر معالجة البيانات ولو 0.1 ثانية في السلامة." : "A delay of even 0.1 seconds can lead to an accident."}</div>` : ""}${teacherCallout(state.languageAr ? "سؤال" : "Ask", item.id === "edge" ? tr("Why should this decision happen on the device instead of waiting for the cloud?", "لماذا يجب أن يحدث هذا القرار على الجهاز بدلًا من انتظار السحابة؟") : tr("Where could students see this technology in real life?", "أين يمكن للطلاب رؤية هذه التقنية في الحياة الواقعية؟"))}</div></div></div>`;
 }
 
 function renderMoore() {
@@ -242,6 +248,11 @@ function render() {
   progressTrack.setAttribute("aria-valuenow", String(state.index + 1));
   document.querySelector("#mode-toggle").textContent = state.teacherMode ? "Teacher Mode" : "Student Mode";
   document.querySelector("#mode-toggle").setAttribute("aria-pressed", String(state.teacherMode));
+  languageToggle.textContent = state.languageAr ? "English" : "العربية";
+  languageToggle.setAttribute("aria-pressed", String(state.languageAr));
+  document.documentElement.lang = state.languageAr ? "ar" : "en";
+  document.documentElement.dir = "ltr";
+  document.body.classList.toggle("lang-ar", state.languageAr);
   document.querySelector("#prev-btn").disabled = state.index === 0;
   document.querySelector("#next-btn").textContent = state.index === slides.length - 1 ? "Restart ↺" : "Next →";
 }
@@ -393,6 +404,7 @@ document.querySelector("#overview-btn").addEventListener("click", () => goTo(0))
 document.querySelector("#gallery-btn").addEventListener("click", openGallery);
 document.querySelector("#video-btn").addEventListener("click", openVideos);
 document.querySelector("#mode-toggle").addEventListener("click", () => { state.teacherMode = !state.teacherMode; render(); });
+languageToggle.addEventListener("click", () => { state.languageAr = !state.languageAr; render(); });
 document.querySelector("#fullscreen-btn").addEventListener("click", async () => { try { if (!document.fullscreenElement) await document.documentElement.requestFullscreen(); else await document.exitFullscreen(); } catch { document.body.classList.toggle("presentation"); } });
 videoInput.addEventListener("change", () => handleVideoFiles(videoInput.files));
 modalRoot.addEventListener("click", (event) => { if (event.target === modalRoot) closeModal(); });

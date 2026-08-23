@@ -9,63 +9,83 @@ export const lesson = {
     {
       id: "eniac", era: "1940s–60s", label: "Birth of the computer", technology: "ENIAC + vacuum tubes",
       impact: "Mainly used for military and scientific computation", image: "media/eniac.jpg", imageAlt: "Historical ENIAC computer room",
+      eraAr: "الأربعينيات - الستينيات", labelAr: "بداية ظهور الحاسوب", technologyAr: "ENIAC + الصمامات المفرغة", impactAr: "استخدم أساسًا للأغراض العسكرية والحسابات العلمية",
       significance: "The first computers filled a whole room. Computing began as large-scale work for institutions rather than a personal activity.",
+      significanceAr: "كانت الحواسيب الأولى تملأ غرفة بأكملها، وكان استخدامها في البداية موجهًا أساسًا إلى الأغراض العسكرية والحسابات العلمية.",
       question: "What becomes possible when a machine can perform large-scale computation?",
+      questionAr: "ما الذي يصبح ممكنًا عندما يستطيع الجهاز تنفيذ حسابات واسعة النطاق؟",
       example: "ENIAC represented the birth of electronic computing: a room-sized system built for demanding military and scientific calculations.",
       before: "No electronic general-purpose computer", after: "Large-scale electronic computation",
+      beforeAr: "لا يوجد حاسوب إلكتروني عام الغرض", afterAr: "إجراء حسابات إلكترونية واسعة النطاق",
       source: "Wikimedia Commons — Classic shot of the ENIAC, public domain"
     },
     {
       id: "pc", era: "1970s–80s", label: "Personal computers", technology: "PCs spread",
       impact: "Beginning of personal computer use", image: "media/early_pcs.jpg", imageAlt: "Early personal computers",
+      eraAr: "السبعينيات - الثمانينيات", labelAr: "الحواسيب الشخصية", technologyAr: "انتشار الحواسيب الشخصية (PCs)", impactAr: "بداية استخدام الأفراد للحاسوب",
       significance: "Computing moved closer to the individual. Instead of a computer mainly serving a large institution, an individual could use a PC directly.",
+      significanceAr: "انتقلت الحوسبة إلى نطاق أقرب للفرد؛ فبدلًا من أن يخدم الحاسوب مؤسسة كبيرة فقط، أصبح الفرد قادرًا على استخدام الحاسوب الشخصي مباشرة.",
       question: "What becomes possible when computing is on a person’s desk?",
+      questionAr: "ما الذي يصبح ممكنًا عندما تكون الحوسبة على مكتب الفرد؟",
       example: "The personal computer changed the user relationship: the computer was no longer only a shared institutional machine.",
       before: "Computing mainly served large institutions", after: "Individuals could use a computer directly",
+      beforeAr: "كانت الحوسبة تخدم المؤسسات الكبيرة أساسًا", afterAr: "أصبح الأفراد قادرين على استخدام الحاسوب مباشرة",
       source: "Wikimedia Commons — Early Personal Computers"
     },
     {
       id: "web", era: "1990s", label: "Internet + Web", technology: "Commercialization of the Internet; the Web",
       impact: "Globalization of information; spread of email", image: "media/first_web.png", imageAlt: "The first World Wide Web project page",
+      eraAr: "التسعينيات", labelAr: "الإنترنت والويب", technologyAr: "إتاحة الإنترنت للاستخدام التجاري وظهور الويب", impactAr: "انتشار الوصول العالمي إلى المعلومات وانتشار البريد الإلكتروني",
       significance: "The Web made information reachable through pages and links. Commercial Internet access connected information across locations and accelerated the spread of email.",
+      significanceAr: "جعل الويب المعلومات متاحة من خلال الصفحات والروابط، وربط إتاحة الإنترنت التجارية المعلومات عبر الأماكن المختلفة وساعد على انتشار البريد الإلكتروني.",
       question: "How did pages, links, and email change the reach of information?",
+      questionAr: "كيف غيّرت الصفحات والروابط والبريد الإلكتروني مدى وصول المعلومات؟",
       example: "The first Web page is a historical reminder that information could be organized as linked pages and reached through a network.",
       before: "Information access was more local and separated", after: "Information became global and email spread",
+      beforeAr: "كان الوصول إلى المعلومات محليًا وأكثر تفرقًا", afterAr: "أصبحت المعلومات عالمية وانتشر البريد الإلكتروني",
       source: "Wikimedia Commons — The World Wide Web project"
     },
     {
       id: "mobile", era: "2000s", label: "Smartphones", technology: "iPhone and other smartphones",
       impact: "Explosive spread of mobile Internet", image: "media/ibm_simon.png", imageAlt: "IBM Simon Personal Communicator",
+      eraAr: "العقد الأول من الألفية", labelAr: "الهواتف الذكية", technologyAr: "ظهور الهواتف الذكية مثل iPhone وغيرها", impactAr: "انتشار سريع وواسع للإنترنت عبر الهواتف المحمولة",
       modernImage: "media/smartphone.jpg", modernAlt: "Modern smartphone",
       significance: "The rise of smartphones moved computing and information access into the pocket, helping mobile Internet spread explosively.",
+      significanceAr: "نقلت الهواتف الذكية الحوسبة والوصول إلى المعلومات إلى الجيب، وساعدت على الانتشار السريع والواسع للإنترنت عبر الهواتف المحمولة.",
       question: "What changes when information access is available almost any time and anywhere?",
+      questionAr: "ما الذي يتغير عندما يصبح الوصول إلى المعلومات متاحًا تقريبًا في أي وقت وأي مكان؟",
       example: "The IBM Simon and modern smartphones show the move from an early multifunction mobile device to a connected pocket computer.",
       before: "Internet access from a fixed place", after: "Mobile Internet access in the pocket",
+      beforeAr: "الوصول إلى الإنترنت من مكان ثابت", afterAr: "الوصول إلى الإنترنت عبر الهاتف المحمول",
       source: "Wikimedia Commons — IBM Simon Personal Communicator, public domain; smartphone category"
     },
     {
       id: "cloud", era: "2010s onward", label: "Cloud computing", technology: "IT as a service",
       impact: "Large-scale data analysis and AI; IT as a service becomes widespread", image: null, imageAlt: "Cloud computing architecture diagram",
+      eraAr: "من العقد الثاني من الألفية فصاعدًا", labelAr: "الحوسبة السحابية", technologyAr: "تقديم موارد تكنولوجيا المعلومات في صورة خدمات عبر الإنترنت", impactAr: "تحليل البيانات الضخمة والذكاء الاصطناعي وانتشار تقديم موارد تكنولوجيا المعلومات كخدمات",
       significance: "Cloud computing does not mean no machines. It means that computing resources are accessed as a service over a network. Real machines, storage, and computing services remain in physical places.",
+      significanceAr: "لا تعني الحوسبة السحابية عدم وجود أجهزة؛ بل تعني الوصول إلى موارد الحوسبة باعتبارها خدمة عبر الشبكة. وتظل الأجهزة الحقيقية والتخزين وخدمات الحوسبة موجودة في أماكن فعلية.",
       question: "Why might a school or company access computing as a service instead of providing every resource locally?",
+      questionAr: "لماذا قد تصل المدرسة أو الشركة إلى موارد الحوسبة كخدمة بدلًا من توفير كل الموارد محليًا؟",
       example: "A device can connect through a network to shared compute, storage, large-scale data analysis, and AI services.",
       before: "Every user or organization provides more resources locally", after: "Computing resources are accessed as a network service",
+      beforeAr: "يوفر كل مستخدم أو مؤسسة موارد أكثر محليًا", afterAr: "يتم الوصول إلى موارد الحوسبة باعتبارها خدمة عبر الشبكة",
       source: "Official Lesson 1 source extraction"
     }
   ],
   socialChanges: [
-    { id: "sns", term: "SNS", ar: "خدمات التواصل الاجتماعي", title: "Social Networking Service", short: "Connect, post, share, and spread information rapidly.", visual: "network", example: "Sharing photos with friends on SNS.", sourceText: "Services that allow users to connect with each other and post and share information. They are highly effective at spreading information rapidly." },
-    { id: "ecommerce", term: "E-commerce", ar: "التجارة الإلكترونية", title: "Electronic commerce (EC)", short: "Buy and sell goods and services through the Internet.", visual: "commerce", example: "Online shops such as Amazon and eBay.", sourceText: "Buying and selling goods and services through the Internet." },
-    { id: "remote", term: "Remote work", ar: "العمل عن بُعد", title: "Remote work", short: "Work from home or another remote location using the Internet.", visual: "remote", example: "A company introducing a work-from-home system.", sourceText: "A working style in which work is performed from home or other remote locations using the Internet." },
-    { id: "learning", term: "Online learning", ar: "التعلّم عبر الإنترنت", title: "Online learning", short: "Classes and study materials are delivered using the Internet.", visual: "learning", example: "Taking classes through online learning.", sourceText: "A learning style in which classes and study materials are delivered using the Internet." },
-    { id: "cashless", term: "Cashless payment", ar: "الدفع غير النقدي", title: "Cashless payment", short: "Pay using electronic money, QR codes, cards, or mobile apps without cash.", visual: "payment", example: "Paying with a mobile payment app on a smartphone.", sourceText: "A system for making payments using electronic money, QR codes, etc., without using cash." }
+    { id: "sns", term: "SNS", ar: "شبكات التواصل الاجتماعي", title: "Social Networking Service", short: "Connect, post, share, and spread information rapidly.", shortAr: "خدمات تتيح للمستخدمين التواصل ونشر المعلومات ومشاركتها بسرعة.", visual: "network", example: "Sharing photos with friends on SNS.", sourceText: "Services that allow users to connect with each other and post and share information. They are highly effective at spreading information rapidly.", sourceTextAr: "خدمات تتيح للمستخدمين التواصل مع بعضهم ونشر المعلومات ومشاركتها، وهي فعالة جدًا في نشر المعلومات بسرعة." },
+    { id: "ecommerce", term: "E-commerce", ar: "التجارة الإلكترونية", title: "Electronic commerce (EC)", short: "Buy and sell goods and services through the Internet.", shortAr: "بيع السلع والخدمات وشراؤها عبر الإنترنت.", visual: "commerce", example: "Online shops such as Amazon and eBay.", sourceText: "Buying and selling goods and services through the Internet.", sourceTextAr: "بيع السلع والخدمات وشراؤها عبر الإنترنت." },
+    { id: "remote", term: "Remote work", ar: "العمل عن بُعد", title: "Remote work", short: "Work from home or another remote location using the Internet.", shortAr: "نمط عمل يؤدي فيه الشخص مهامه من المنزل أو من مكان بعيد باستخدام الإنترنت.", visual: "remote", example: "A company introducing a work-from-home system.", sourceText: "A working style in which work is performed from home or other remote locations using the Internet.", sourceTextAr: "نمط عمل يؤدي فيه الشخص مهامه من المنزل أو من موقع بعيد آخر باستخدام الإنترنت." },
+    { id: "learning", term: "Online learning", ar: "التعلّم عبر الإنترنت", title: "Online learning", short: "Classes and study materials are delivered using the Internet.", shortAr: "نمط تعليمي تُقدَّم فيه الدروس والمواد التعليمية عبر الإنترنت.", visual: "learning", example: "Taking classes through online learning.", sourceText: "A learning style in which classes and study materials are delivered using the Internet.", sourceTextAr: "نمط تعليمي تُقدَّم فيه الدروس والمواد التعليمية عبر الإنترنت." },
+    { id: "cashless", term: "Cashless payment", ar: "الدفع غير النقدي", title: "Cashless payment", short: "Pay using electronic money, QR codes, cards, or mobile apps without cash.", shortAr: "دفع قيمة السلع أو الخدمات بوسائل غير نقدية مثل البطاقات أو تطبيقات الهاتف أو رموز QR.", visual: "payment", example: "Paying with a mobile payment app on a smartphone.", sourceText: "A system for making payments using electronic money, QR codes, etc., without using cash.", sourceTextAr: "نظام لدفع قيمة السلع أو الخدمات باستخدام النقود الإلكترونية أو رموز QR وغيرها دون استخدام النقد." }
   ],
   emerging: [
-    { id: "autonomous", term: "Autonomous driving", ar: "القيادة الذاتية", short: "AI uses cameras and sensors to recognize surroundings, make driving decisions, and control a vehicle.", detail: "Because a delay of even 0.1 seconds can lead to an accident, edge computing processes data instantly on the vehicle itself instead of waiting for a cloud judgment.", visual: "car" },
-    { id: "edge", term: "Edge computing", ar: "الحوسبة الطرفية", short: "Processing data on the device itself, instantly, instead of sending it to the cloud.", detail: "The vehicle decides on the spot: observe with cameras and sensors → process on board → control the vehicle.", visual: "edge" },
-    { id: "ar", term: "AR", ar: "الواقع المعزّز", short: "Overlays digital information on real-world images.", detail: "AR adds a digital layer while the real-world scene remains visible.", visual: "ar" },
-    { id: "vr", term: "VR", ar: "الواقع الافتراضي", short: "Allows users to immerse themselves in a virtual space generated by a computer.", detail: "VR replaces the visible environment with a computer-generated virtual space.", visual: "vr" },
-    { id: "quantum", term: "Quantum computing", ar: "الحوسبة الكمية", short: "Expected to speed up computations that are difficult or impossible for traditional computers by using quantum mechanics.", detail: "A classical bit holds one definite state, either 0 or 1. A qubit uses superposition: a combination of 0 and 1 at once.", visual: "quantum" }
+    { id: "autonomous", term: "Autonomous driving", ar: "القيادة الذاتية", short: "AI uses cameras and sensors to recognize surroundings, make driving decisions, and control a vehicle.", shortAr: "تقنية تستخدم الذكاء الاصطناعي والكاميرات والمستشعرات للتعرف على المحيط واتخاذ قرارات القيادة والتحكم في المركبة.", detail: "Because a delay of even 0.1 seconds can lead to an accident, edge computing processes data instantly on the vehicle itself instead of waiting for a cloud judgment.", detailAr: "لأن تأخر معالجة بيانات القيادة ولو 0.1 ثانية قد يؤثر في السلامة، تُعالج بعض البيانات محليًا على المركبة باستخدام الحوسبة الطرفية بدلًا من إرسالها إلى السحابة.", visual: "car" },
+    { id: "edge", term: "Edge computing", ar: "الحوسبة الطرفية", short: "Processing data on the device itself, instantly, instead of sending it to the cloud.", shortAr: "معالجة البيانات فورًا على الجهاز نفسه بدلًا من إرسالها إلى السحابة.", detail: "The vehicle decides on the spot: observe with cameras and sensors → process on board → control the vehicle.", detailAr: "تتخذ المركبة القرار على متنها: تراقب بالكاميرات والمستشعرات ← تعالج البيانات محليًا ← تتحكم في المركبة.", visual: "edge" },
+    { id: "ar", term: "AR", ar: "الواقع المعزز", short: "Overlays digital information on real-world images.", shortAr: "تقنية تضيف معلومات أو عناصر رقمية إلى مشهد من العالم الحقيقي.", detail: "AR adds a digital layer while the real-world scene remains visible.", detailAr: "يضيف الواقع المعزز طبقة رقمية مع بقاء مشهد العالم الحقيقي ظاهرًا.", visual: "ar" },
+    { id: "vr", term: "VR", ar: "الواقع الافتراضي", short: "Allows users to immerse themselves in a virtual space generated by a computer.", shortAr: "تقنية تضع المستخدم داخل بيئة افتراضية مولدة بالحاسوب.", detail: "VR replaces the visible environment with a computer-generated virtual space.", detailAr: "يضع الواقع الافتراضي المستخدم داخل بيئة رقمية كاملة مولدة بالحاسوب.", visual: "vr" },
+    { id: "quantum", term: "Quantum computing", ar: "الحوسبة الكمية", short: "Expected to speed up computations that are difficult or impossible for traditional computers by using quantum mechanics.", shortAr: "نهج حاسوبي يستخدم مبادئ ميكانيكا الكم وقد يتفوق في فئات محددة من المسائل.", detail: "A classical bit holds one definite state, either 0 or 1. A qubit uses superposition: a combination of 0 and 1 at once.", detailAr: "يحمل البِت التقليدي حالة واحدة محددة، إما 0 أو 1، بينما يستخدم الكيوبِت مبدأ التراكب الكمي.", visual: "quantum" }
   ],
   moore: {
     definition: "The number of transistors on an integrated circuit doubles approximately every two years.",

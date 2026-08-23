@@ -44,6 +44,8 @@ npx serve .
 
 The educational content is based on the supplied Lesson 1 extraction and preserves the official stages, source-supported impacts, Key Concepts, worked reasoning, activities, and the exact exam-style question.
 
+Use the `العربية` / `English` control in the top bar to switch the stage explanations, impacts, questions, social changes, and emerging technologies between English-first content and Arabic support based on the supplied Arabic lesson PDF.
+
 ## Visual sources
 
 Historical and technical visuals are local copies of reusable Wikimedia Commons assets. Source links are listed in the media gallery and in `content.js`.

@@ -22,7 +22,7 @@
 * { box-sizing: border-box; }
 
 html, body { min-height: 100%; }
-body { margin: 0; min-width: 320px; overflow: hidden; background: linear-gradient(135deg, #eef5fb 0%, #ffffff 48%, #edf6fb 100%); }
+body { margin: 0; min-width: 320px; overflow: auto; background: linear-gradient(135deg, #eef5fb 0%, #ffffff 48%, #edf6fb 100%); }
 button, input { font: inherit; }
 button { cursor: pointer; }
 .control-select { width: 100%; padding: 11px 12px; border: 1px solid var(--line); border-radius: 10px; background: var(--white); color: var(--ink); font-weight: 700; }
@@ -46,8 +46,9 @@ button { cursor: pointer; }
 .stakeholder-table > div { display: grid; grid-template-columns: 1.3fr 1fr 1fr; gap: 6px; }
 .stakeholder-table > div > * { padding: 10px; border: 1px solid var(--line); background: var(--pale); }
 .lesson-video { width: 100%; min-height: 360px; border: 0; border-radius: 14px; background: #071a31; }
+body.lang-ar .stage-title, body.lang-ar .stage-subtitle, body.lang-ar .body-copy, body.lang-ar .timeline-detail-copy, body.lang-ar .selected-detail, body.lang-ar .impact-line, body.lang-ar .teacher-callout { direction: rtl; text-align: right; }
 
-.app-shell { height: 100vh; min-height: 0; display: flex; flex-direction: column; overflow: hidden; }
+.app-shell { min-height: 100vh; display: flex; flex-direction: column; overflow: visible; }
 .topbar { min-height: 76px; padding: 12px 28px; display: flex; align-items: center; justify-content: space-between; gap: 20px; color: var(--white); background: var(--navy); border-bottom: 4px solid var(--cyan); }
 .brand-lockup { display: flex; align-items: center; gap: 13px; min-width: 0; }
 .brand-mark { width: 44px; height: 44px; display: grid; place-items: center; color: var(--navy); background: var(--gold); font-size: 19px; font-weight: 800; border-radius: 12px; }
@@ -62,7 +63,7 @@ button { cursor: pointer; }
 .control-btn:hover, .rail-btn:hover, .nav-btn:hover, .choice-btn:hover, .icon-btn:hover, .mini-btn:hover { transform: translateY(-2px); }
 .control-btn--ghost:hover { background: var(--navy-2); border-color: var(--cyan); }
 
-.workspace { flex: 1; height: calc(100vh - 118px); min-height: 0; display: grid; grid-template-columns: 220px minmax(0, 1fr); gap: 18px; padding: 18px 22px 8px; }
+.workspace { flex: 1; min-height: calc(100vh - 118px); display: grid; grid-template-columns: 220px minmax(0, 1fr); gap: 18px; padding: 18px 22px 8px; }
 .lesson-rail { display: flex; flex-direction: column; min-height: 0; padding: 17px 12px; background: rgba(255,255,255,.85); border: 1px solid var(--line); border-radius: 18px; box-shadow: var(--shadow); }
 .rail-heading { padding: 0 9px 12px; color: var(--blue); font-size: 12px; font-weight: 800; letter-spacing: .12em; }
 .rail-list { flex: 1; min-height: 0; overflow: auto; display: grid; gap: 5px; }
@@ -73,18 +74,18 @@ button { cursor: pointer; }
 .rail-footer { display: grid; gap: 7px; padding-top: 12px; border-top: 1px solid var(--line); }
 .rail-btn { width: 100%; font-size: 12px; background: var(--pale-blue); }
 
-.lesson-stage-wrap { min-width: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; }
-.lesson-stage { position: relative; width: min(100%, 1280px); height: min(calc(100vh - 190px), 730px); min-height: 0; overflow: hidden; padding: clamp(22px, 3vw, 48px); display: flex; flex-direction: column; background: var(--white); border: 1px solid var(--line); border-radius: 28px; box-shadow: var(--shadow); outline: none; animation: stageIn .34s ease both; }
+.lesson-stage-wrap { min-width: 0; min-height: 0; overflow: visible; display: flex; flex-direction: column; align-items: center; justify-content: flex-start; padding-bottom: 8px; }
+.lesson-stage { position: relative; width: min(100%, 1280px); height: auto; min-height: min(calc(100vh - 190px), 730px); overflow: visible; padding: clamp(22px, 3vw, 48px); display: flex; flex-direction: column; background: var(--white); border: 1px solid var(--line); border-radius: 28px; box-shadow: var(--shadow); outline: none; animation: stageIn .34s ease both; flex: 0 0 auto; }
 .lesson-stage:focus-visible { box-shadow: 0 0 0 4px rgba(27,163,230,.25), var(--shadow); }
 @keyframes stageIn { from { opacity: .15; transform: translateY(8px) scale(.992); } to { opacity: 1; transform: none; } }
 .stage-eyebrow { color: var(--blue); font-size: clamp(11px, 1vw, 14px); font-weight: 800; letter-spacing: .12em; text-transform: uppercase; }
 .stage-title { max-width: 1020px; margin: 8px 0 0; color: var(--navy); font-size: clamp(32px, 4vw, 62px); line-height: 1.02; letter-spacing: -.035em; }
 .stage-subtitle { margin: 8px 0 0; color: var(--blue); font-size: clamp(15px, 1.45vw, 22px); }
 .stage-ar { color: var(--muted); font-size: clamp(12px, 1vw, 15px); }
-.stage-body { flex: 1; min-height: 0; overflow: auto; display: flex; flex-direction: column; justify-content: center; gap: 18px; padding-right: 4px; }
+.stage-body { flex: 0 0 auto; min-height: 0; overflow: visible; display: flex; flex-direction: column; justify-content: flex-start; gap: 18px; padding: 0 4px 92px 0; }
 .stage-footer-note { margin-top: auto; padding-top: 15px; color: var(--muted); font-size: 12px; }
 .accent-line { width: 92px; height: 5px; margin-top: 14px; background: var(--gold); border-radius: 5px; }
-.stage-controls { width: min(100%, 1280px); display: flex; align-items: center; justify-content: space-between; gap: 16px; padding: 13px 4px 2px; }
+.stage-controls { width: min(100%, 1280px); display: flex; align-items: center; justify-content: space-between; gap: 16px; padding: 13px 4px 8px; }
 .nav-btn { min-width: 120px; color: var(--navy); background: var(--white); border-color: var(--line); }
 .nav-btn--primary { color: var(--white); background: var(--blue); border-color: var(--blue); }
 .progress-wrap { flex: 1; display: flex; align-items: center; gap: 12px; max-width: 640px; }
@@ -159,6 +160,7 @@ button { cursor: pointer; }
 .device-stack, .cloud-stack { display: grid; gap: 10px; }
 .device-node, .cloud-node { padding: 15px; text-align: center; border: 2px solid var(--cyan); border-radius: 14px; background: var(--pale-blue); font-weight: 800; }
 .cloud-node { border-color: var(--green); background: #eef9f5; }
+.device-node span { display: block; margin-top: 4px; color: var(--muted); font-size: 12px; font-weight: 500; }
 .cloud-node span { display: block; margin-top: 4px; color: var(--muted); font-size: 12px; font-weight: 500; }
 .network-bridge { display: grid; place-items: center; gap: 8px; color: var(--blue); font-weight: 800; }
 .network-bridge::before, .network-bridge::after { content: "→"; color: var(--cyan); font-size: 35px; }
