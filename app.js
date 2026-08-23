@@ -277,8 +277,11 @@ function fitStageToViewport() {
     return;
   }
   canvas.style.transform = "none";
-  const availableWidth = stage.clientWidth;
-  const availableHeight = stage.clientHeight;
+  const stageStyle = getComputedStyle(stage);
+  const horizontalPadding = parseFloat(stageStyle.paddingLeft) + parseFloat(stageStyle.paddingRight);
+  const verticalPadding = parseFloat(stageStyle.paddingTop) + parseFloat(stageStyle.paddingBottom);
+  const availableWidth = stage.clientWidth - horizontalPadding;
+  const availableHeight = stage.clientHeight - verticalPadding;
   const naturalWidth = canvas.scrollWidth;
   const naturalHeight = canvas.scrollHeight;
   if (!availableWidth || !availableHeight) return;
