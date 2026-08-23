@@ -1,0 +1,64 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#071a31" />
+    <meta name="description" content="Interactive Smart Board teaching website for Lesson 1: Development of Information Technology and Social Transformation." />
+    <title>Lesson 1 — Interactive Smart Board</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <div id="app" class="app-shell">
+      <header class="topbar">
+        <div class="brand-lockup">
+          <div class="brand-mark">IT</div>
+          <div>
+            <div class="brand-title">LESSON 1-1 <span>|</span> INFORMATION TECHNOLOGY</div>
+            <div class="brand-subtitle">Development of Information Technology and Social Transformation</div>
+          </div>
+        </div>
+        <div class="top-actions">
+          <span id="section-label" class="section-label">WELCOME</span>
+          <button id="mode-toggle" class="control-btn control-btn--ghost" type="button" aria-pressed="true">Teacher Mode</button>
+          <button id="fullscreen-btn" class="control-btn" type="button">Full screen</button>
+          <button id="overview-btn" class="control-btn control-btn--ghost" type="button">Overview</button>
+        </div>
+      </header>
+
+      <main class="workspace">
+        <aside class="lesson-rail" aria-label="Lesson navigation">
+          <div class="rail-heading">TEACHING JOURNEY</div>
+          <div id="rail-list" class="rail-list"></div>
+          <div class="rail-footer">
+            <button id="gallery-btn" class="rail-btn" type="button">Media gallery</button>
+            <button id="video-btn" class="rail-btn" type="button">Video library</button>
+          </div>
+        </aside>
+
+        <section class="lesson-stage-wrap">
+          <div id="lesson-stage" class="lesson-stage" tabindex="0" aria-live="polite"></div>
+          <div class="stage-controls">
+            <button id="prev-btn" class="nav-btn" type="button">← Previous</button>
+            <div class="progress-wrap">
+              <span id="progress-label" class="progress-label">1 / 18</span>
+              <div class="progress-track" role="progressbar" aria-label="Lesson progress" aria-valuemin="1" aria-valuemax="18" aria-valuenow="1"><span id="progress-bar"></span></div>
+            </div>
+            <button id="next-btn" class="nav-btn nav-btn--primary" type="button">Next →</button>
+          </div>
+          <div class="keyboard-hint">Use ← → to navigate · Space to reveal · F for full screen</div>
+        </section>
+      </main>
+
+      <footer class="footer-bar">
+        <div>م/ أحمد عبدالمجيد</div>
+        <div>01552136249</div>
+        <div class="footer-note">Smart Board teaching system · English-first + Arabic support</div>
+      </footer>
+    </div>
+
+    <div id="modal-root" class="modal-root" hidden></div>
+    <input id="video-input" class="visually-hidden" type="file" accept="video/*" multiple />
+    <script type="module" src="app.js"></script>
+  </body>
+</html>
