@@ -78,6 +78,7 @@ body.lang-ar .stage-title, body.lang-ar .stage-subtitle, body.lang-ar .body-copy
 .lesson-stage { position: relative; width: min(100%, 1280px); height: auto; min-height: min(calc(100vh - 190px), 730px); overflow: visible; padding: clamp(22px, 3vw, 48px); display: flex; flex-direction: column; background: var(--white); border: 1px solid var(--line); border-radius: 28px; box-shadow: var(--shadow); outline: none; animation: stageIn .34s ease both; flex: 0 0 auto; }
 .lesson-stage:focus-visible { box-shadow: 0 0 0 4px rgba(27,163,230,.25), var(--shadow); }
 @keyframes stageIn { from { opacity: .15; } to { opacity: 1; } }
+.stage-canvas { width: 100%; min-height: 100%; transform-origin: top center; }
 .stage-eyebrow { color: var(--blue); font-size: clamp(11px, 1vw, 14px); font-weight: 800; letter-spacing: .12em; text-transform: uppercase; }
 .stage-title { max-width: 1020px; margin: 8px 0 0; color: var(--navy); font-size: clamp(32px, 4vw, 62px); line-height: 1.02; letter-spacing: -.035em; }
 .stage-subtitle { margin: 8px 0 0; color: var(--blue); font-size: clamp(15px, 1.45vw, 22px); }
@@ -277,7 +278,7 @@ body.presentation .topbar { padding: 14px 26px; }
   .app-shell { height: 100vh; min-height: 0; overflow: hidden; }
   .workspace { height: calc(100vh - 118px); min-height: 0; overflow: hidden; }
   .lesson-stage-wrap { height: 100%; min-height: 0; overflow: hidden; padding-bottom: 0; }
-  .lesson-stage { height: 100%; min-height: 0; overflow: hidden; flex: 1 1 auto; transform-origin: top center; }
+  .lesson-stage { height: 100%; min-height: 0; overflow: hidden; flex: 1 1 auto; }
   .stage-body { min-height: 0; overflow: hidden; padding-bottom: 0; }
 }
 
